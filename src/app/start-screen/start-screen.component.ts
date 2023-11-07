@@ -13,7 +13,8 @@ export class StartScreenComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
   game= new Game();
   gameId !:string | undefined;
-  constructor(private router: Router){}
+  
+  constructor( private router: Router){}
 
 ngOnInit(): void {}
 

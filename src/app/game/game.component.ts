@@ -9,6 +9,7 @@ import {
   addDoc,
   updateDoc,
 } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -22,10 +23,14 @@ export class GameComponent implements OnInit {
 
   firestore: Firestore = inject(Firestore);
 
-  constructor(public dialog: MatDialog) {}
+  constructor(private route: ActivatedRoute, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.newGame();
+    this.route.params.subscribe((params) => {
+      console.log(params['id']);
+    });
+    console.log(this.game);
   }
 
   newGame() {
