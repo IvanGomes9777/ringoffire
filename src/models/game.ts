@@ -3,7 +3,7 @@ export class Game{
     public stack: string[]=[];
     public playedCards: string[]=[];
     public currentPlayer: number=0;
-currentCard: any;
+    public currentCard="";
 
     constructor(){
 
@@ -15,6 +15,16 @@ currentCard: any;
         }
         shuffle(this.stack);
     }  
+
+    toJSON(){
+        return {
+    players:this.players,
+    stack: this.stack,
+    playedCards: this.playedCards,
+    currentPlayer:this.currentPlayer,
+    currentCard: this.currentCard
+        }
+    }
 }
 
 function shuffle(array: any[]) {
