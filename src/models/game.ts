@@ -16,6 +16,18 @@ export class Game{
         shuffle(this.stack);
     }  
 
+    updateGame(): any {
+        return {
+          players: this.players,
+          stack: this.stack,
+          playedCards: this.playedCards,
+          currentPlayer: this.currentPlayer,
+          currentCard: this.currentCard
+        };
+      }
+
+      
+
     toJSON(){
         return {
     players:this.players,

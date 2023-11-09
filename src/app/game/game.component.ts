@@ -8,6 +8,7 @@ import {
   doc,
   addDoc,
   updateDoc,
+  getDoc,
 } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 
@@ -31,6 +32,14 @@ export class GameComponent implements OnInit {
       console.log(params['id']);
     });
     console.log(this.game);
+  }
+
+  async updateGameInFirestore() {
+    try {
+      await updateDoc(this.getSingleDocRef('game', this.game.id), this.game.updateGame());
+    } catch (error) {
+      console.error('Error updating document:', error);
+    }
   }
 
   newGame() {
@@ -72,16 +81,19 @@ export class GameComponent implements OnInit {
           this.pickCardAnimation = false;
         }, 1000);
       } else {
-        console.error('The stack is empty'); // You can log an error message or handle it in any other way you prefer
+        console.error('The stack is empty'); 
       }
     }
   }
 
-  openDialog(): void {
+  async openDialog(): Promise<void> {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name.length > 0) {
         this.game.players.push(name);
+        this.game.currentPlayer = this.game.players.length - 1; // Assuming 0-based index
+
+        this.updateGameInFirestore();
       }
     });
   }
