@@ -11,6 +11,7 @@ import {
   getDoc,
 } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-game',
@@ -28,23 +29,34 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.newGame();
-    this.route.params.subscribe((params) => {
+    this.route.params.subscribe(async (params) => {
+      const gameId = params['id'];
+      await this.loadGameFromDatabase(gameId);
       console.log(params['id']);
     });
-    console.log(this.game);
   }
 
-  async updateGameInFirestore() {
+
+  async loadGameFromDatabase(gameId: string) {
+    const gameRef = this.getSingleDocRef('game', gameId);
+
     try {
-      await updateDoc(this.getSingleDocRef('game', this.game.id), this.game.updateGame());
+      const gameDoc = await getDoc(gameRef);
+      if (gameDoc.exists()) {
+        this.game = gameDoc.data() as Game;
+        console.log('Loaded game from database:', this.game);
+      } else {
+        console.error('Game not found in the database');
+      }
     } catch (error) {
-      console.error('Error updating document:', error);
+      console.error('Error loading game from the database:', error);
     }
   }
 
   newGame() {
-    this.game! = new Game();
+    this.game = new Game();
   }
+
 
   async addGame(game: {}) {
     await addDoc(this.getGameRef(), game)
@@ -71,29 +83,24 @@ export class GameComponent implements OnInit {
         this.currentCard = poppedCard;
         console.log(this.currentCard);
         this.pickCardAnimation = true;
-
         this.game.currentPlayer++;
         this.game.currentPlayer =
           this.game.currentPlayer % this.game.players.length;
-
         setTimeout(() => {
           this.game.playedCards.push(this.currentCard);
           this.pickCardAnimation = false;
         }, 1000);
       } else {
-        console.error('The stack is empty'); 
+        console.error('The stack is empty');
       }
     }
   }
 
-  async openDialog(): Promise<void> {
+  openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name.length > 0) {
         this.game.players.push(name);
-        this.game.currentPlayer = this.game.players.length - 1; // Assuming 0-based index
-
-        this.updateGameInFirestore();
       }
     });
   }

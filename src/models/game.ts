@@ -1,4 +1,6 @@
 export class Game{
+
+  public id: string = '';
     public players: string[]=[];
     public stack: string[]=[];
     public playedCards: string[]=[];
@@ -28,15 +30,16 @@ export class Game{
 
       
 
-    toJSON(){
+      toJSON() {
         return {
-    players:this.players,
-    stack: this.stack,
-    playedCards: this.playedCards,
-    currentPlayer:this.currentPlayer,
-    currentCard: this.currentCard
-        }
-    }
+          id: this.id,
+          players: this.players,
+          stack: this.stack,
+          playedCards: this.playedCards,
+          currentPlayer: this.currentPlayer,
+          currentCard: this.currentCard,
+        };
+      }
 }
 
 function shuffle(array: any[]) {
