@@ -54,15 +54,23 @@ export class GameComponent implements OnInit {
     this.game = new Game();
   }
 
-  async updateGame() {
-    const gameRef = this.getSingleDocRef('game', this.game.id);
-    const updatedGameData = this.game.updateGame();
-    try {
-      console.log('Updating local game state...');
-      await updateDoc(gameRef, updatedGameData);
-      console.log('Game updated successfully in Firestore');
-    } catch (error) {
-      console.error('Error updating game:', error);
+
+  async updateGame(){
+    if(this.game.id){
+      let docRef=this.getSingleDocRef('game', this.game.id);
+      await updateDoc(docRef, this.getCleanJSON(this.game)).catch(
+        (err)=>{console.log(err);}
+      );
+    }
+  }
+
+  getCleanJSON(game:Game):{}{
+    return {
+      players : this.game.players,
+      stack : this.game.stack,
+      playedCards: this.game.playedCards,
+      currentPlayer: this.game.currentPlayer,
+      currentCard : this.game.currentCard
     }
   }
 
@@ -110,6 +118,6 @@ export class GameComponent implements OnInit {
       if (name.length > 0) {
         this.game.players.push(name);
       }
-    });
+    }); 
   }
 }
