@@ -6,36 +6,39 @@ import { Game } from 'src/models/game';
 @Component({
   selector: 'app-start-screen',
   templateUrl: './start-screen.component.html',
-  styleUrls: ['./start-screen.component.scss'],
+  styleUrls: ['./start-screen.component.scss']
 })
 export class StartScreenComponent implements OnInit {
+
   firestore: Firestore = inject(Firestore);
+  
   game = new Game();
-  gameId!: string | undefined;
+  gameId !:string | undefined;
+  
+  constructor( private router: Router){}
 
-  constructor(private router: Router) {}
+ngOnInit(): void {}
 
-  ngOnInit(): void {}
+ async newGame(){
+  await this.addGame()
+  this.router.navigateByUrl('/game/' + this.gameId);
+}
 
-  async newGame() {
-    this.router.navigateByUrl('/game/' + this.gameId);
-  }
+async addGame() {
+  await addDoc(this.getGameRef(),this.game.toJSON() )
+    .catch((error) => {
+      console.error(error);
+    })
+    .then((docRef) => {
+      console.log(this.gameId = docRef?.id);
+    });
+}
 
-  async addGame() {
-    await addDoc(this.getGameRef(), this.game.toJSON())
-      .catch((error) => {
-        console.error(error);
-      })
-      .then((docRef) => {
-        console.log((this.gameId = docRef?.id));
-      });
-  }
+getGameRef() {
+  return collection(this.firestore, 'game');
+}
 
-  getGameRef() {
-    return collection(this.firestore, 'game');
-  }
-
-  getSingleDocRef(colId: string, docId: string) {
-    return doc(collection(this.firestore, colId), docId);
-  }
+getSingleDocRef(colId: string, docId: string) {
+  return doc(collection(this.firestore, colId), docId);
+}
 }

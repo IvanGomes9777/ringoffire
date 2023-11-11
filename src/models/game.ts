@@ -1,5 +1,5 @@
 export class Game{
-
+  
   public id: string = '';
     public players: string[]=[];
     public stack: string[]=[];
@@ -19,17 +19,16 @@ export class Game{
     }  
 
     updateGame(): any {
-        return {
-          players: this.players,
-          stack: this.stack,
-          playedCards: this.playedCards,
-          currentPlayer: this.currentPlayer,
-          currentCard: this.currentCard
-        };
-      }
-
-      
-
+      return {
+        id: this.id,
+        players: this.players,
+        stack: this.stack,
+        playedCards: this.playedCards,
+        currentPlayer: this.currentPlayer,
+        currentCard: this.currentCard,
+      };
+    }
+    
       toJSON() {
         return {
           id: this.id,
@@ -45,14 +44,11 @@ export class Game{
 function shuffle(array: any[]) {
     let currentIndex = array.length,  randomIndex;
   
-    // While there remain elements to shuffle.
     while (currentIndex > 0) {
   
-      // Pick a remaining element.
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
   
-      // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }

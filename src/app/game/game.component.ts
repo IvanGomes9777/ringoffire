@@ -32,14 +32,11 @@ export class GameComponent implements OnInit {
     this.route.params.subscribe(async (params) => {
       const gameId = params['id'];
       await this.loadGameFromDatabase(gameId);
-      console.log(params['id']);
     });
   }
 
-
   async loadGameFromDatabase(gameId: string) {
     const gameRef = this.getSingleDocRef('game', gameId);
-
     try {
       const gameDoc = await getDoc(gameRef);
       if (gameDoc.exists()) {
@@ -57,6 +54,17 @@ export class GameComponent implements OnInit {
     this.game = new Game();
   }
 
+  async updateGame() {
+    const gameRef = this.getSingleDocRef('game', this.game.id);
+    const updatedGameData = this.game.updateGame();
+    try {
+      console.log('Updating local game state...');
+      await updateDoc(gameRef, updatedGameData);
+      console.log('Game updated successfully in Firestore');
+    } catch (error) {
+      console.error('Error updating game:', error);
+    }
+  }
 
   async addGame(game: {}) {
     await addDoc(this.getGameRef(), game)
