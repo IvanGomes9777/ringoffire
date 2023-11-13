@@ -54,7 +54,6 @@ export class GameComponent implements OnInit {
     this.game = new Game();
   }
 
-
   async updateGame(){
     if(this.game.id){
       let docRef=this.getSingleDocRef('game', this.game.id);
@@ -117,6 +116,7 @@ export class GameComponent implements OnInit {
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name.length > 0) {
         this.game.players.push(name);
+        this.updateGame();
       }
     }); 
   }
