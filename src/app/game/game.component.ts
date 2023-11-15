@@ -24,7 +24,6 @@ export class GameComponent implements OnInit {
   currentCard: string = '';
 
   firestore: Firestore = inject(Firestore);
-
   constructor(private route: ActivatedRoute, public dialog: MatDialog) {}
 
   ngOnInit(): void {
