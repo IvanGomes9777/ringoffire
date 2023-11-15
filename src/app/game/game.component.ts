@@ -32,7 +32,7 @@ export class GameComponent implements OnInit {
     this.route.params.subscribe(async (params) => {
       const gameId = params['id'];
       await this.loadGameFromDatabase(gameId);
-      this.game.id=gameId;
+      this.game.id = gameId;
     });
   }
 
@@ -55,16 +55,14 @@ export class GameComponent implements OnInit {
     this.game = new Game();
   }
 
-  async updateGame(){
-    if(this.game.id){
-      let docRef=this.getSingleDocRef('game', this.game.id);
-      await updateDoc(docRef, this.getCleanJSON(this.game)).catch(
-        (err)=>{console.log(err);}
-      );
+  async updateGame() {
+    if (this.game.id) {
+      let docRef = this.getSingleDocRef('game', this.game.id);
+      await updateDoc(docRef, this.getCleanJSON(this.game)).catch((err) => {
+        console.log(err);
+      });
     }
-  }  
-  
-
+  }
 
   getCleanJSON(game: Game): {} {
     return {
@@ -72,10 +70,9 @@ export class GameComponent implements OnInit {
       stack: this.game.stack,
       playedCards: this.game.playedCards,
       currentPlayer: this.game.currentPlayer,
-      currentCard: this.game.currentCard
+      currentCard: this.game.currentCard,
     };
   }
-  
 
   async addGame(game: {}) {
     await addDoc(this.getGameRef(), game)
@@ -122,6 +119,6 @@ export class GameComponent implements OnInit {
         this.game.players.push(name);
         this.updateGame();
       }
-    }); 
+    });
   }
 }
