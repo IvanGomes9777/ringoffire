@@ -19,9 +19,8 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit {
-  pickCardAnimation = false;
   game!: Game;
-  currentCard: string = '';
+  
 
   firestore: Firestore = inject(Firestore);
   constructor(private route: ActivatedRoute, public dialog: MatDialog) {}
@@ -70,6 +69,7 @@ export class GameComponent implements OnInit {
       playedCards: this.game.playedCards,
       currentPlayer: this.game.currentPlayer,
       currentCard: this.game.currentCard,
+      pickCardAnimation:this.game.pickCardAnimation,
     };
   }
 
@@ -93,17 +93,19 @@ export class GameComponent implements OnInit {
 
   takeCard() {
     const poppedCard = this.game.stack.pop();
-    if (!this.pickCardAnimation) {
+    if (!this.game.pickCardAnimation) {
       if (poppedCard !== undefined) {
-        this.currentCard = poppedCard;
-        console.log(this.currentCard);
-        this.pickCardAnimation = true;
+        this.game.currentCard = poppedCard;
+        console.log(this.game.currentCard);
+        this.game.pickCardAnimation = true;
+        this.updateGame();
         this.game.currentPlayer++;
         this.game.currentPlayer =
           this.game.currentPlayer % this.game.players.length;
         setTimeout(() => {
-          this.game.playedCards.push(this.currentCard);
-          this.pickCardAnimation = false;
+          this.game.playedCards.push(this.game.currentCard);
+          this.updateGame();
+          this.game.pickCardAnimation = false;
         }, 1000);
       } else {
         console.error('The stack is empty');

@@ -54,6 +54,7 @@ transform: scale(1);
 .player-position{
     position: absolute;
     right: 0;
+    z-index: 1;
 }
 
 .btn-add{
