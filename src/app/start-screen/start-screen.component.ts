@@ -25,13 +25,13 @@ ngOnInit(): void {}
 }
 
 async addGame() {
-  await addDoc(this.getGameRef(),this.game.toJSON() )
-    .catch((error) => {
-      console.error(error);
-    })
-    .then((docRef) => {
-      console.log(this.gameId = docRef?.id);
-    });
+  try {
+    const docRef = await addDoc(this.getGameRef(), this.game.toJSON());
+    this.gameId = docRef.id;
+    console.log('Game ID:', this.gameId);
+  } catch (error) {
+    console.error('Error adding game:', error);
+  }
 }
 
 getGameRef() {

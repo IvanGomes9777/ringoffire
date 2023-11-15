@@ -1,6 +1,6 @@
 export class Game{
   
-  public id: string = '';
+    public id: string = '';
     public players: string[]=[];
     public stack: string[]=[];
     public playedCards: string[]=[];
@@ -20,7 +20,6 @@ export class Game{
 
     updateGame(): any {
       return {
-        id: this.id,
         players: this.players,
         stack: this.stack,
         playedCards: this.playedCards,
@@ -40,6 +39,8 @@ export class Game{
         };
       }
 }
+
+
 
 function shuffle(array: any[]) {
     let currentIndex = array.length,  randomIndex;
