@@ -69,5 +69,33 @@ transform: scale(1);
     bottom: 32px;
     left: 100px;
     right: 100px;
+
+    @media(max-width:900px){
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}
+
+.scroll-container{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display: flex;
+
+    app-mobile-player{
+        margin-left: 8px;
+    }
+
+    app-player , app-mobile-player {
+        cursor: pointer;
+
+        &:hover{
+            filter: brightness(1.15);
+        }
+    }
 }
 

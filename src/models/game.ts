@@ -17,16 +17,16 @@ export class Game {
     shuffle(this.stack);
   }
 
-  updateGame(): any {
-    return {
-      id: this.id,
-      players: this.players,
-      stack: this.stack,
-      playedCards: this.playedCards,
-      currentPlayer: this.currentPlayer,
-      pickCardAnimation:this.pickCardAnimation,
-    };
-  }
+  // updateGame(): any {
+  //   return {
+  //     id: this.id,
+  //     players: this.players,
+  //     stack: this.stack,
+  //     playedCards: this.playedCards,
+  //     currentPlayer: this.currentPlayer,
+  //     pickCardAnimation:this.pickCardAnimation,
+  //   };
+  // }
 
   public toJSON() {
     return {

@@ -17,6 +17,7 @@ import {MatCardModule} from '@angular/material/card';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from './environments/environment';
+import { MobilePlayerComponent } from './mobile-player/mobile-player.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { environment } from './environments/environment';
     PlayerComponent,
     DialogAddPlayerComponent,
     GameInfoComponent,
+    MobilePlayerComponent,
   ],
   imports: [
     BrowserModule,

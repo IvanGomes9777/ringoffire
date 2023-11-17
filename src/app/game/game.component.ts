@@ -11,7 +11,6 @@ import {
   getDoc,
 } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-game',
@@ -21,8 +20,8 @@ import { v4 as uuidv4 } from 'uuid';
 export class GameComponent implements OnInit {
   game!: Game;
   
-
   firestore: Firestore = inject(Firestore);
+
   constructor(private route: ActivatedRoute, public dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -121,5 +120,9 @@ export class GameComponent implements OnInit {
         this.updateGame();
       }
     });
+  }
+
+  editPlayer(playerId:number){
+    console.log('yessiiirrrr',playerId)
   }
 }

@@ -1,10 +1,20 @@
 <app-player
-  *ngFor="let player of game.players; let i =index;"
-  [ngStyle]="{ 'top.px': 100+ (i * 90)}" 
-  [playerAktiv]="i == game.currentPlayer "
+(click)="editPlayer(i)"
+  *ngFor="let player of game.players; let i = index"
+  [ngStyle]="{ 'top.px': 100 + i * 90 }"
+  [playerAktiv]="i == game.currentPlayer"
   [name]="player"
-  class="player-position"
+  class="player-position hide-mobile"
 ></app-player>
+
+<div  class="scroll-container hide-desktop">
+  <app-mobile-player
+  (click)="editPlayer(i)"
+    *ngFor="let player of game.players; let i = index"
+    [playerAktiv]="i == game.currentPlayer"
+    [name]="player"
+  ></app-mobile-player>
+</div>
 
 <div class="field">
   <div class="card-stack">
@@ -43,7 +53,6 @@
 
 <app-game-info [card]="game.currentCard" class="pin-bottom"></app-game-info>
 
-<button (click)="openDialog()" mat-fab class="btn-add" >
+<button (click)="openDialog()" mat-fab class="btn-add">
   <mat-icon>add</mat-icon>
 </button>
-
