@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class PlayerComponent {
 
   @Input () name: any;
-  @Input () image = '1.jpeg';
+  @Input () image = '1.png';
 
   @Input() playerAktiv: boolean = false;
 

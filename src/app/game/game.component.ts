@@ -19,8 +19,8 @@ import { EditPlayerComponent } from '../edit-player/edit-player.component';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit {
-  game!: Game;  
-  gameOver=false;
+  game!: Game;
+  gameOver = false;
   firestore: Firestore = inject(Firestore);
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog) {}
@@ -64,13 +64,13 @@ export class GameComponent implements OnInit {
 
   getCleanJSON(game: Game): {} {
     return {
-      player_images : this.game.player_images,
+      player_images: this.game.player_images,
       players: this.game.players,
       stack: this.game.stack,
       playedCards: this.game.playedCards,
       currentPlayer: this.game.currentPlayer,
       currentCard: this.game.currentCard,
-      pickCardAnimation:this.game.pickCardAnimation,
+      pickCardAnimation: this.game.pickCardAnimation,
     };
   }
 
@@ -94,8 +94,8 @@ export class GameComponent implements OnInit {
 
   takeCard() {
     const poppedCard = this.game.stack.pop();
-    if(this.game.stack.length == 0){
-      this.gameOver=true;
+    if (this.game.stack.length == 0) {
+      this.gameOver = true;
     } else if (!this.game.pickCardAnimation) {
       if (poppedCard !== undefined) {
         this.game.currentCard = poppedCard;
@@ -121,28 +121,26 @@ export class GameComponent implements OnInit {
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name.length > 0) {
         this.game.players.push(name);
-        this.game.player_images.push('1.jpeg') 
+        this.game.player_images.push('1.png');
         this.updateGame();
       }
     });
   }
 
-  editPlayer(playerId:number){
-    console.log('yessiiirrrr',playerId)
-    const dialogRef= this.dialog.open(EditPlayerComponent);
+  editPlayer(playerId: number) {
+    console.log('yessiiirrrr', playerId);
+    const dialogRef = this.dialog.open(EditPlayerComponent);
     dialogRef.afterClosed().subscribe((change: string) => {
-      console.log('recived change', change)
-      if(change){
-        if(change == 'DELETE'){
+      console.log('recived change', change);
+      if (change) {
+        if (change == 'DELETE') {
           this.game.player_images.splice(playerId, 1);
           this.game.players.splice(playerId, 1);
-
-        }else{
+        } else {
           this.game.player_images[playerId] = change;
         }
         this.updateGame();
-
-    }
+      }
     });
   }
 }

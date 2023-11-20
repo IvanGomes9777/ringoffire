@@ -99,3 +99,20 @@ transform: scale(1);
     }
 }
 
+.game-over{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img{
+        width: 100vw;
+    }
+}
+
+.preload-image{
+    opacity: 0;
+    z-index: -9999999;
+    height: 0px;
+    width: 0px;
+}
+

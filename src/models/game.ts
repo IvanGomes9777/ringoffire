@@ -1,7 +1,7 @@
 export class Game {
   public id: string = '';
   public players: string[] = [];
-  public player_images : string[] = [];
+  public player_images: string[] = [];
   public stack: string[] = [];
   public playedCards: string[] = [];
   public currentPlayer: number = 0;
@@ -21,12 +21,13 @@ export class Game {
   public toJSON() {
     return {
       id: this.id,
-      player_images:this.player_images,
+      player_images: this.player_images,
       players: this.players,
       stack: this.stack,
       playedCards: this.playedCards,
       currentPlayer: this.currentPlayer,
-      pickCardAnimation:this.pickCardAnimation,
+      pickCardAnimation: this.pickCardAnimation,
+      currentCard: this.currentCard,
     };
   }
 }
