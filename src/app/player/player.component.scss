@@ -6,15 +6,18 @@
   border-bottom-left-radius: 50px;
 
   span {
-    font-size: 32px;
+    font-size: 24px;
     margin-left: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   background-color: lightgray;
 
   img {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
     border-radius: 100%;
   }

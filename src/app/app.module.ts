@@ -18,6 +18,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from './environments/environment';
 import { MobilePlayerComponent } from './mobile-player/mobile-player.component';
+import { EditPlayerComponent } from './edit-player/edit-player.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { MobilePlayerComponent } from './mobile-player/mobile-player.component';
     DialogAddPlayerComponent,
     GameInfoComponent,
     MobilePlayerComponent,
+    EditPlayerComponent,
   ],
   imports: [
     BrowserModule,
